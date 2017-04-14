@@ -227,7 +227,8 @@ class PlistReader(object):
         """Raises NotBinaryPlistException."""
         self.reset()
         self.file = fileOrStream
-    
+        self.size_offset = None
+
     def parse(self):
         return self.readRoot()
     
@@ -388,6 +389,8 @@ class PlistReader(object):
             self.setCurrentOffsetToObjectNumber(keys[i])
             key = self.readObject()
             self.setCurrentOffsetToObjectNumber(values[i])
+            if key == "Size":
+                self.size_offset = self.currentOffset
             value = self.readObject()
             result[key] = value
             i += 1
