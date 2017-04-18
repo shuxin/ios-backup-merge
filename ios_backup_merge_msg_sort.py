@@ -111,6 +111,11 @@ def message_sort(filename):
     cur = con.cursor()
     cur.execute("UPDATE `sqlite_sequence` SET seq = ? WHERE `name` = 'message';", (e,))
     cur = con.cursor()
+
+    cur = con.cursor()
+    cur.execute("UPDATE `chat` SET properties = NULL;") # clean time index
+    cur.close()
+
     con.commit()
     con.close()
     print d, e
